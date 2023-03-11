@@ -1,20 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, View } from 'react-native';
+import {MD3LightTheme as DefaultTheme, Provider as PaperProvider} from 'react-native-paper'
+import * as SecureStore from 'expo-secure-store'
+import { useState } from 'react';
+import { disableErrorHandling } from 'expo';
+import Home from './screens/Home';
+import Navigator from './routes/routes'
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'green',
+    secondary: 'yellow',
+  },
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <View style={{flex: 1, paddingTop: 100}}>
+      <PaperProvider theme={theme}>
+        {/* <Home /> */}
+        <Navigator />
+      </PaperProvider>
     </View>
-  );
+    </TouchableWithoutFeedback>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
